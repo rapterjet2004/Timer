@@ -7,18 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-/** ORDER OF BUSINESS FOR TODAY
- * -----------------------------------
- * [BUG REPORT LISTS]
- * [BUG REPORT] SecondActivity restarts timer after changing to landscape view
- * [BUG REPORT] timer doesn't reset seconds when initial input in seconds is 00, using 01:00 test case
- *
- *
- * [TODO LIST]
- * Document code
- * Move this all into github
- *
- */
+
 public class MainActivity extends AppCompatActivity {
     private int hour, minute, second;
     private EditText hourInput, minuteInput, secondInput;
