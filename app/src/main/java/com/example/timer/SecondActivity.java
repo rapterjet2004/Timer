@@ -29,8 +29,10 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
         timer = findViewById(R.id.timer);
 
+
         gatherDataFromIntent();
         countDown(userInputInMilli(hours, minutes, seconds));
+
 
 
         resetBtn = findViewById(R.id.resetButton);
@@ -132,13 +134,17 @@ public class SecondActivity extends AppCompatActivity {
         return result;
     }
 
+
     private void onTickUpdater()
     {
-        seconds--;
         if(seconds == 0 && minutes > 0)
         {
             minutes--;
             seconds = 59;
+        }
+        else
+        {
+            seconds--;
         }
 
         if(minutes == 0 && hours > 0)
@@ -147,6 +153,7 @@ public class SecondActivity extends AppCompatActivity {
             minutes = 59;
             seconds = 59;
         }
+
     }
 
 }
