@@ -105,7 +105,7 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
-    public void start()
+    private void start()
     {
         initializeTextViewTimer();
         gatherDataFromIntent();
@@ -115,12 +115,12 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
-    public void initializeTextViewTimer()
+    private void initializeTextViewTimer()
     {
         timer = findViewById(R.id.timer);
     }
 
-    public void initializeResetButton(Button resetBtn)
+    private void initializeResetButton(Button resetBtn)
     {
         resetBtn = findViewById(R.id.resetButton);
         resetBtn.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +132,7 @@ public class SecondActivity extends AppCompatActivity {
         });
     }
 
-    public void initializeStopButton(Button stopBtn)
+    private void initializeStopButton(Button stopBtn)
     {
         stopBtn = findViewById(R.id.stopButton);
         Button finalStopBtn = stopBtn;
@@ -145,7 +145,7 @@ public class SecondActivity extends AppCompatActivity {
         });
     }
 
-    public void ifPressed(Button b)
+    private void ifPressed(Button b)
     {
         if(!isPressed)
         {
@@ -159,7 +159,7 @@ public class SecondActivity extends AppCompatActivity {
         }
     }
 
-    public void ifPaused(CountDownTimer mTimer)
+    private void ifPaused(CountDownTimer mTimer)
     {
         if(!isPaused)
         {
