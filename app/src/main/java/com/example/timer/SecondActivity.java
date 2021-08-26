@@ -1,15 +1,12 @@
 package com.example.timer;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -27,55 +24,7 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        timer = findViewById(R.id.timer);
-
-
-        gatherDataFromIntent();
-        countDown(userInputInMilli(hours, minutes, seconds));
-
-
-
-        resetBtn = findViewById(R.id.resetButton);
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    intent = new Intent(SecondActivity.this, MainActivity.class);
-                    startActivity(intent);
-            }
-        });
-
-
-        stopBtn = findViewById(R.id.stopButton);
-        stopBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!isPressed)
-                {
-                    stopBtn.setBackgroundColor(ContextCompat.getColor(SecondActivity.this, R.color.lightergray));
-                    isPressed = !isPressed;
-
-                }
-                else
-                {
-                    stopBtn.setBackgroundColor(ContextCompat.getColor(SecondActivity.this, R.color.orange));
-                    isPressed = !isPressed;
-                }
-
-                if(!isPaused)
-                {
-                    mTimer.cancel();
-                    isPaused = !isPaused;
-                }
-                else
-                {
-                    countDown(timeRemaining);
-                    isPaused = !isPaused;
-                }
-
-
-            }
-        });
-
+        start();
     }
 
     private void gatherDataFromIntent()
@@ -154,6 +103,74 @@ public class SecondActivity extends AppCompatActivity {
             seconds = 59;
         }
 
+    }
+
+    public void start()
+    {
+        initializeTextViewTimer();
+        gatherDataFromIntent();
+        countDown(userInputInMilli(hours, minutes, seconds));
+        initializeResetButton(resetBtn);
+        initializeStopButton(stopBtn);
+
+    }
+
+    public void initializeTextViewTimer()
+    {
+        timer = findViewById(R.id.timer);
+    }
+
+    public void initializeResetButton(Button resetBtn)
+    {
+        resetBtn = findViewById(R.id.resetButton);
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(SecondActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void initializeStopButton(Button stopBtn)
+    {
+        stopBtn = findViewById(R.id.stopButton);
+        Button finalStopBtn = stopBtn;
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ifPressed(finalStopBtn);
+                ifPaused(mTimer);
+            }
+        });
+    }
+
+    public void ifPressed(Button b)
+    {
+        if(!isPressed)
+        {
+            b.setBackgroundColor(ContextCompat.getColor(SecondActivity.this, R.color.lightergray));
+            isPressed = !isPressed;
+        }
+        else
+        {
+            b.setBackgroundColor(ContextCompat.getColor(SecondActivity.this, R.color.orange));
+            isPressed = !isPressed;
+        }
+    }
+
+    public void ifPaused(CountDownTimer mTimer)
+    {
+        if(!isPaused)
+        {
+            mTimer.cancel();
+            isPaused = !isPaused;
+        }
+        else
+        {
+            countDown(timeRemaining);
+            isPaused = !isPaused;
+        }
     }
 
 }
