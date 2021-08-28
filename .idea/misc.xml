@@ -4,9 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout-land/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout-land/activity_second.xml" value="0.22" />
+        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout-land/activity_second.xml" value="0.1" />
         <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/activity_second.xml" value="0.16842105263157894" />
+        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/activity_second.xml" value="0.1" />
+        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/test.xml" value="0.16842105263157894" />
       </map>
     </option>
   </component>

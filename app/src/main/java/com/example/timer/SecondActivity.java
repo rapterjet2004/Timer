@@ -1,6 +1,7 @@
 package com.example.timer;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -14,7 +15,7 @@ public class SecondActivity extends AppCompatActivity {
     private final String TAG = "SecondActivity.java";
     private int hours, minutes, seconds;
     private boolean isPaused, isPressed;
-    private long timeRemaining; // I have the time remaining when the countdowntimer was canceled.
+    private long timeRemaining; // I have the time remaining when the count down timer was canceled.
     private CountDownTimer mTimer;
     private TextView timer;
     private Button resetBtn, stopBtn;
@@ -25,6 +26,7 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         start();
+
     }
 
     private void gatherDataFromIntent()

@@ -20,7 +20,7 @@
                 android:id="@+id/timer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="00:01:30"
+                android:text="00:02:30"
                 android:textSize="95sp"
                 android:textAlignment="center"
                 android:textColor="@color/white"
@@ -28,8 +28,9 @@
 
         </RelativeLayout>
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             >
 
             <Button
