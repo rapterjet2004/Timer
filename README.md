@@ -3,7 +3,7 @@ A small Timer app with a clean simple UI
 
 Path to Java files is app>>src>>main>>java/com/example/timer
 
-Path to layout resource files is app>>src>>main>>res
+Path to layout resource files is app>>src>>main>>res>>layout
 
 # Short gist of how it works
 The app has two activitys, the launcher activity which collects user input, and the second activity which displays the timer. 
