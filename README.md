@@ -15,7 +15,7 @@ The launcher activity gathers input using 3 editText widgets corresponding to th
 The second activity is just a textView widget which gets it's text reset every 1000 milliseconds via the android CountDownTimer class, using
 the setText() method. 
 
-There is a button in the launcher activity that start the timer(Sends data from launcher activity to next activity, and starts SecondActivity.java)
+There is a button in the launcher activity that starts the timer(Sends data from launcher activity to next activity, and starts SecondActivity.java)
 
 There are buttons in the second activity that stop the timer, and reset the timer(returns user to the launcher activity)
 
