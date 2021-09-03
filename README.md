@@ -19,6 +19,9 @@ There is a button in the launcher activity that starts the timer(Sends data from
 
 There are buttons in the second activity that stop the timer, and reset the timer(returns user to the launcher activity)
 
+#How to run
+The app isn't on the play store, so you'll have to download android studio to run it. It should be pretty light weight. 
+
 
 
 
