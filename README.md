@@ -1,6 +1,7 @@
 # Timer
 A small Timer app with a clean simple UI
 
+# Paths
 Path to Java files is app>>src>>main>>java/com/example/timer
 
 Path to layout resource files is app>>src>>main>>res>>layout
