@@ -11,16 +11,62 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+/**
+ * @author Julius Linus
+ *
+ * SecondActivity.java is responsible for the handling the logic for
+ * the timer displayed in activity_second.xml. Recieves user data from MainActivity.java
+ * using Intent.
+ */
 public class SecondActivity extends AppCompatActivity {
+    /**
+     * Used for tagging Logs
+     */
     private final String TAG = "SecondActivity.java";
+
+    /**
+     * int variables that store the hours, minutes, and seconds of specified from user input
+     */
     private int hours, minutes, seconds;
+
+    /**
+     * boolean variables used to tell if the app is paused, or if a button is pressed.
+     */
     private boolean isPaused, isPressed;
-    private long timeRemaining; // I have the time remaining when the count down timer was canceled.
+
+    /**
+     * Gives the time remaining on the counter at any given time. Updates every tick(1000 milliseconds) in
+     * onTick() method in countdown()
+     */
+    private long timeRemaining;
+
+    /**
+     * Creates an instance of the CountDownTimer class, from android.
+     */
     private CountDownTimer mTimer;
+
+    /**
+     * Creates a TextView object that represents the timer displayed in activity_second.xml
+     */
     private TextView timer;
+
+    /**
+     * Creates two Button objects that represent the reset button and the stop Button.
+     * They appear grey, but are initialized in initializeResetButton() and initializeStopButton()
+     */
     private Button resetBtn, stopBtn;
+
+    /**
+     * Intent used to gather data from MainActivity.java
+     */
     Intent intent;
 
+
+    /**
+     * Initializes the activity, sets the content view to activity_second.xml, calls start()
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +75,9 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gathers data from MainActivity.java, stores it in the int variables hours, minutes, and seconds
+     */
     private void gatherDataFromIntent()
     {
         intent = getIntent();
@@ -38,13 +87,23 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Initializes the CountDownTimer mTimer and starts it.
+     * Method input is used to specify how the long the CountDownTimer lasts.
+     * Ticks every 1000 milliseconds(1 second), updates timeRemaining, and calls
+     * formatTimer() and onTickUpdater() to send updates to the timer TextView.
+     *
+     * Note: onTick will never call before the previous onTick is called.
+     *
+     * @param milli
+     */
     private void countDown(long milli)
     {
         mTimer = new CountDownTimer(milli, 1000)
         {
-            public void onTick(long millisUntilFinished) //while loop messes with onTick
+            public void onTick(long millisUntilFinished)
             {
-                timeRemaining = millisUntilFinished; //updates every tick
+                timeRemaining = millisUntilFinished;
                 formatTimer();
                 onTickUpdater();
             }
@@ -56,11 +115,23 @@ public class SecondActivity extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * uses formatTimerHelper to help format the hours, minutes, and seconds variables to be ready
+     * to be displayed in timer.
+     */
     private void formatTimer()
     {
         timer.setText(formatTimerHelper(hours) + ":" + formatTimerHelper(minutes) + ":" + formatTimerHelper(seconds));
     }
 
+    /**
+     * Takes any int input, and formats it into a style that is ready to be displayed
+     * in the timer. Adds a 0 in front of the int if it's below 10. Returns the formatted int
+     * as a String.
+     *
+     * @param time
+     * @return String
+     */
     private String formatTimerHelper(int time)
     {
         String formatted = "";
@@ -76,6 +147,14 @@ public class SecondActivity extends AppCompatActivity {
         return formatted;
     }
 
+    /**
+     * Calculates user input in milliseconds, returns this result as an int
+     *
+     * @param h
+     * @param m
+     * @param s
+     * @return int
+     */
     private int userInputInMilli(int h, int m, int s)
     {
         int result = 0;
@@ -86,6 +165,11 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Updates the hours, minutes, and seconds variables.
+     * Called every tick, to keep the timer TextView updated.
+     *
+     */
     private void onTickUpdater()
     {
         if(seconds == 0 && minutes > 0)
@@ -107,6 +191,11 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Initializes the timer, the reset button, and the stop button.
+     * Gathers the data from Intent, to be stored in hours, minutes, and seconds.
+     * Starts the countDown after parsing user input into milliseconds.
+     */
     private void start()
     {
         initializeTextViewTimer();
@@ -117,11 +206,19 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Initializes the CountDownTimer
+     */
     private void initializeTextViewTimer()
     {
         timer = findViewById(R.id.timer);
     }
 
+    /**
+     * Initializes and sets up the reset button. When clicked, sends user back to MainActivity.java
+     *
+     * @param resetBtn
+     */
     private void initializeResetButton(Button resetBtn)
     {
         resetBtn = findViewById(R.id.resetButton);
@@ -134,6 +231,11 @@ public class SecondActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Initializes and sets up the stop button. Timer is stopped and resumed, when clicked.
+     *
+     * @param stopBtn
+     */
     private void initializeStopButton(Button stopBtn)
     {
         stopBtn = findViewById(R.id.stopButton);
@@ -147,6 +249,12 @@ public class SecondActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * isPressed is false by default. Checks to see if the button hsa been pressed, and
+     * changes graphics accordingly.
+     *
+     * @param b
+     */
     private void ifPressed(Button b)
     {
         if(!isPressed)
@@ -161,6 +269,13 @@ public class SecondActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * isPaused is false by default. Checks to see if the timer is paused, and cancels it if true.
+     * Upon unPause, the timer is continues off where it left using timeRemaining as the parameter for
+     * countDown()
+     *
+     * @param mTimer
+     */
     private void ifPaused(CountDownTimer mTimer)
     {
         if(!isPaused)
