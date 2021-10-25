@@ -172,6 +172,7 @@ public class SecondActivity extends AppCompatActivity {
      * @param seconds
      */
 
+
     private void updateIterationFromSeconds(int seconds)
     {
             //Log.i(TAG, "Seconds: " + String.valueOf(seconds));
