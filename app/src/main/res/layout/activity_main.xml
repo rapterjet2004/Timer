@@ -46,13 +46,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/semicolon1"
+                android:backgroundTint="@color/white"
+                android:inputType="number"
+                android:maxLength="2"
                 android:text="00"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/white"
-                android:textSize="90sp"
-                android:maxLength="2"
-                android:inputType="number"
-                />
+                android:textSize="90sp" />
 
             <TextView
                 android:id="@+id/semicolon2"

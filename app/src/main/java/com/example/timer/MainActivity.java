@@ -93,10 +93,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private void sendInput()
     {
-        intent = new Intent(MainActivity.this, SecondActivity.class);
-        intent.putExtra("HourInput", hour);
-        intent.putExtra("MinuteInput", minute);
-        intent.putExtra("SecondInput", second);
-        startActivity(intent);
+        if(hour <= 24 && minute <= 59 && second <= 59) {
+            intent = new Intent(MainActivity.this, SecondActivity.class);
+            intent.putExtra("HourInput", hour);
+            intent.putExtra("MinuteInput", minute);
+            intent.putExtra("SecondInput", second);
+            startActivity(intent);
+        }
     }
 }

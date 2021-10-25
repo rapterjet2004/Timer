@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import java.lang.Math;
 
 /**
  * @author Julius Linus
@@ -105,7 +106,7 @@ public class SecondActivity extends AppCompatActivity {
             {
                 timeRemaining = millisUntilFinished;
                 formatTimer();
-                onTickUpdater();
+                updateIterationFromSeconds((int)timeRemaining/1000); //drops decimal place 9.856 >>> 9
             }
 
             public void onFinish()
@@ -117,7 +118,7 @@ public class SecondActivity extends AppCompatActivity {
 
     /**
      * uses formatTimerHelper to help format the hours, minutes, and seconds variables to be ready
-     * to be displayed in timer.
+     * to be displayed in the timer textView.
      */
     private void formatTimer()
     {
@@ -148,7 +149,8 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     /**
-     * Calculates user input in milliseconds, returns this result as an int
+     * Calculates user input in milliseconds, returns this result as an int. Used to restore time after
+     * pause event.
      *
      * @param h
      * @param m
@@ -164,32 +166,23 @@ public class SecondActivity extends AppCompatActivity {
         return result;
     }
 
-
     /**
-     * Updates the hours, minutes, and seconds variables.
-     * Called every tick, to keep the timer TextView updated.
+     * Updates the hours, minutes, and seconds variables from the given seconds input.
      *
+     * @param seconds
      */
-    private void onTickUpdater()
-    {
-        if(seconds == 0 && minutes > 0)
-        {
-            minutes--;
-            seconds = 59;
-        }
-        else
-        {
-            seconds--;
-        }
 
-        if(minutes == 0 && hours > 0)
-        {
-            hours--;
-            minutes = 59;
-            seconds = 59;
-        }
+    private void updateIterationFromSeconds(int seconds)
+    {
+            //Log.i(TAG, "Seconds: " + String.valueOf(seconds));
+            hours = seconds / 3600;
+            double totalMinutes = ((seconds / 3600.0 - hours) * 3600) / 60.0;
+            minutes = (int)totalMinutes;
+            this.seconds = (int)Math.round(((totalMinutes - minutes) * 60));
+            //11 iterations
 
     }
+
 
     /**
      * Initializes the timer, the reset button, and the stop button.
@@ -260,7 +253,7 @@ public class SecondActivity extends AppCompatActivity {
         if(!isPressed)
         {
             b.setBackgroundColor(ContextCompat.getColor(SecondActivity.this, R.color.lightergray));
-            isPressed = !isPressed;
+           isPressed = !isPressed;
         }
         else
         {
@@ -278,10 +271,12 @@ public class SecondActivity extends AppCompatActivity {
      */
     private void ifPaused(CountDownTimer mTimer)
     {
+
         if(!isPaused)
         {
             mTimer.cancel();
             isPaused = !isPaused;
+
         }
         else
         {
