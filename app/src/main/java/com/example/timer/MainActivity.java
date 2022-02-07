@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
      */
     Intent intent;
 
+    NavigationFragment fragment = new NavigationFragment();
+
     /**
      * Initializes the activity, Button onClickListeners, and sets Content View to
      * activity_main.xml
@@ -49,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.navigation, fragment, null)
+                    .commit();
+        }
 
         /*
           setTimer is initialized and given an onClickListener. Listener calls
@@ -87,6 +96,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Calculates user input in milliseconds, returns this result as an int. Used to restore time after
+     * pause event.
+     *
+     * @param h
+     * @param m
+     * @param s
+     * @return int
+     */
+    private int userInputInMilli(int h, int m, int s)
+    {
+        int result = 0;
+        result += s * 1000;
+        result += m * 60000;
+        result += h * 3600000;
+        return result;
+    }
+
+    /**
      * Initializes the global intent variable and stores the user data along with it
      * using the putExtra() method, before starting the SecondActivity.java using the
      * startActivity() method.
@@ -95,10 +122,12 @@ public class MainActivity extends AppCompatActivity {
     {
         if(hour <= 24 && minute <= 59 && second <= 59) {
             intent = new Intent(MainActivity.this, SecondActivity.class);
-            intent.putExtra("HourInput", hour);
-            intent.putExtra("MinuteInput", minute);
-            intent.putExtra("SecondInput", second);
-            startActivity(intent);
+            fragment.setTime(hour, minute, second);
+            fragment.setTesty(userInputInMilli(hour, minute, second));
+            //intent.putExtra("HourInput", hour);
+            //intent.putExtra("MinuteInput", minute);
+            //intent.putExtra("SecondInput", second);
+            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
         }
     }
 }

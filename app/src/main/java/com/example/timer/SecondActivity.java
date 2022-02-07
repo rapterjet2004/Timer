@@ -1,6 +1,8 @@
 package com.example.timer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,6 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.preference.PreferenceManager;
+
 import java.lang.Math;
 
 /**
@@ -62,6 +68,9 @@ public class SecondActivity extends AppCompatActivity {
      */
     Intent intent;
 
+    NavigationFragment fragment = new NavigationFragment();
+    //SharedPreferences preferences =
+
 
     /**
      * Initializes the activity, sets the content view to activity_second.xml, calls start()
@@ -72,19 +81,67 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.navigation, fragment, null)
+                    .commit();
+            getSupportFragmentManager().executePendingTransactions();
+
+        }
+
+        // userInputInMilli(hours, minutes, seconds)
         start();
+        //Log.i(TAG, "onCreate() was called with timeRemaining of " + timeRemaining);
+        //notifyFragmentIfTimerEnded();
 
     }
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Log.i(TAG, "onResume was called");
+        Log.i(TAG, "getTesty(): " + fragment.getTesty());
+        if(mTimer != null) {
+            mTimer.cancel();
+        }
+        countDown(fragment.getTesty());
+        //long time = preferences.getLong("time", 0);
+        //if(!(time==0))
+        //{
+        //    timeRemaining = time;
+        //    Log.i(TAG, String.valueOf(timeRemaining));
+        //}
+    }
+
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        Log.i(TAG, "onPause was called");
+        //fragment.setTesty(timeRemaining);
+        if(mTimer != null) {
+            mTimer.cancel();
+        }
+        countDown(fragment.getTesty());
+
+    }
+
+
 
     /**
      * Gathers data from MainActivity.java, stores it in the int variables hours, minutes, and seconds
      */
     private void gatherDataFromIntent()
     {
-        intent = getIntent();
-        hours = intent.getIntExtra("HourInput", 0);
-        minutes = intent.getIntExtra("MinuteInput", 0);
-        seconds = intent.getIntExtra("SecondInput", 0);
+        //intent = getIntent();
+        //hours = intent.getIntExtra("HourInput", 0);
+        //minutes = intent.getIntExtra("MinuteInput", 0);
+        //seconds = intent.getIntExtra("SecondInput", 0);
+        hours = fragment.getHours();
+        minutes = fragment.getMinutes();
+        seconds = fragment.getSeconds();
 
     }
 
@@ -100,17 +157,28 @@ public class SecondActivity extends AppCompatActivity {
      */
     private void countDown(long milli)
     {
+
         mTimer = new CountDownTimer(milli, 1000)
         {
             public void onTick(long millisUntilFinished)
             {
                 timeRemaining = millisUntilFinished;
+                fragment.setTesty(timeRemaining);
+
+                    //SharedPreferences.Editor editor = preferences.edit();
+                    //editor.putLong("time", timeRemaining);
+                    //editor.apply();
+
+                Log.i(TAG, "Time Remaining " + timeRemaining);
                 formatTimer();
                 updateIterationFromSeconds((int)timeRemaining/1000); //drops decimal place 9.856 >>> 9
+                fragment.setTime(hours, minutes, seconds);
+
             }
 
             public void onFinish()
             {
+                //notifyFragmentIfTimerEnded(); should I?
                 timer.setText("00:00:00");
             }
         }.start();
@@ -148,31 +216,13 @@ public class SecondActivity extends AppCompatActivity {
         return formatted;
     }
 
-    /**
-     * Calculates user input in milliseconds, returns this result as an int. Used to restore time after
-     * pause event.
-     *
-     * @param h
-     * @param m
-     * @param s
-     * @return int
-     */
-    private int userInputInMilli(int h, int m, int s)
-    {
-        int result = 0;
-        result += s * 1000;
-        result += m * 60000;
-        result += h * 3600000;
-        return result;
-    }
+
 
     /**
      * Updates the hours, minutes, and seconds variables from the given seconds input.
      *
      * @param seconds
      */
-
-
     private void updateIterationFromSeconds(int seconds)
     {
             //Log.i(TAG, "Seconds: " + String.valueOf(seconds));
@@ -181,6 +231,7 @@ public class SecondActivity extends AppCompatActivity {
             minutes = (int)totalMinutes;
             this.seconds = (int)Math.round(((totalMinutes - minutes) * 60));
             //11 iterations
+
 
     }
 
@@ -192,13 +243,16 @@ public class SecondActivity extends AppCompatActivity {
      */
     private void start()
     {
+        //didItEnd = !didItEnd;
         initializeTextViewTimer();
         gatherDataFromIntent();
-        countDown(userInputInMilli(hours, minutes, seconds));
         initializeResetButton(resetBtn);
         initializeStopButton(stopBtn);
+        Log.i(TAG, "Hours: "+hours + " Minutes: " + minutes + " Seconds: " + seconds);
+
 
     }
+
 
     /**
      * Initializes the CountDownTimer
@@ -220,7 +274,7 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(SecondActivity.this, MainActivity.class);
-                startActivity(intent);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
     }
@@ -285,5 +339,6 @@ public class SecondActivity extends AppCompatActivity {
             isPaused = !isPaused;
         }
     }
+
 
 }

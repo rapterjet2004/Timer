@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkergray"
@@ -24,9 +23,10 @@
             >
 
             <TextView
-                android:id="@+id/timer"
+                android:id="@+id/stopwatch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="03:30"
                 android:textSize="95sp"
                 android:textAlignment="center"
                 android:textColor="@color/white"
@@ -46,7 +46,7 @@
                 android:layout_marginTop="100dp"
                 android:layout_marginLeft="10dp"
                 android:padding="20dp"
-                android:text="Reset Timer"
+                android:text="Reset"
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 android:background="@color/orange"
@@ -62,7 +62,22 @@
                 android:layout_marginRight="5dp"
                 android:layout_toRightOf="@+id/resetButton"
                 android:padding="20dp"
-                android:text="Stop Timer"
+                android:text="Pause"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:background="@color/orange"
+                />
+
+            <Button
+                android:id="@+id/startButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="5dp"
+                android:layout_toRightOf="@+id/stopButton"
+                android:padding="20dp"
+                android:text="Go"
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 android:background="@color/orange"
@@ -70,9 +85,8 @@
 
 
         </RelativeLayout>
-
-
     </LinearLayout>
-    <include layout="@layout/fragment_navigation"
-        />
+    <include layout = "@layout/fragment_navigation"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

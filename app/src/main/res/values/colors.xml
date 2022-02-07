@@ -10,4 +10,5 @@
     <color name="orange" >#ed790c</color>
     <color name="darkergray">#2e2e2e</color>
     <color name="lightergray">#787878</color>
+    <color name="navigation_bar">#292929</color>
 </resources>

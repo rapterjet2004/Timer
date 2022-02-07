@@ -5,8 +5,10 @@
       <map>
         <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout-land/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout-land/activity_second.xml" value="0.1" />
-        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/activity_second.xml" value="0.22" />
+        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/activity_second.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/activity_stopwatch.xml" value="0.1875" />
+        <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/fragment_navigation.xml" value="0.16842105263157894" />
         <entry key="..\:/Users/juliu/AndroidStudioProjects/Timer/app/src/main/res/layout/test.xml" value="0.16842105263157894" />
       </map>
     </option>

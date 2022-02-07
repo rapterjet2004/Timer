@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,28 +8,32 @@
     android:background="@color/darkergray"
     tools:context=".MainActivity">
 
+
     <LinearLayout
+        android:id="@+id/activity_main_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         >
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            >
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal">
 
             <EditText
                 android:id="@+id/hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:inputType="number"
+                android:maxLength="2"
                 android:text="00"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/white"
-                android:textSize="90sp"
-                android:maxLength="2"
-                android:inputType="number"/>
+                android:textSize="90sp" />
 
             <TextView
                 android:id="@+id/semicolon1"
@@ -38,8 +42,7 @@
                 android:layout_toRightOf="@id/hours"
                 android:text=":"
                 android:textColor="@color/white"
-                android:textSize="100sp"
-                />
+                android:textSize="100sp" />
 
             <EditText
                 android:id="@+id/minutes"
@@ -77,26 +80,30 @@
                 android:textSize="90sp" />
 
 
-        </RelativeLayout>
 
         <Button
             android:id="@+id/setTimerBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
+            android:layout_below="@+id/minutes"
+            android:layout_marginTop="100dp"
+            android:background="@color/orange"
             android:text="start timer"
             android:textColor="@color/white"
-            android:textSize="40sp"
-            android:background="@color/orange"
-            />
-
+            android:textSize="40sp" />
+        </RelativeLayout>
 
 
     </LinearLayout>
+    <include
+        layout="@layout/fragment_navigation" />
 
 
 
 
 
-</ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
